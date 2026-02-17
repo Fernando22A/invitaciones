@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in Pro</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        :root { --primary: #2563eb; --success: #22c55e; --danger: #ef4444; }
+        body { font-family: system-ui, sans-serif; margin: 0; background: #111; color: white; }
+        
+        #reader { width: 100% !important; border: none !important; }
+        #reader__dashboard { background: white; color: black; padding: 10px; }
+        
+        .card {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; color: #333;
+            padding: 20px; border-radius: 20px 20px 0 0;
+            display: none; text-align: center; z-index: 100;
+        }
+        
+        img#invitado-foto { 
+            width: 120px; height: 120px; border-radius: 60px; 
+            object-fit: cover; border: 4px solid var(--primary);
+        }
+        
+        button {
+            background: var(--primary); color: white; border: none;
+            padding: 15px 30px; border-radius: 10px; font-size: 18px;
+            width: 100%; margin-top: 15px; font-weight: bold;
+        }
+        
+        .pases-badge { font-size: 2rem; color: var(--primary); display: block; margin: 10px 0; }
+        .status-error { color: var(--danger); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="reader"></div>
+    
+    <div id="resultado" class="card">
+        <img id="invitado-foto" src="" alt="Foto">
+        <h2 id="invitado-nombre" style="margin:10px 0 5px"></h2>
+        <span id="label-pases">Pases restantes:</span>
+        <strong id="invitado-pases" class="pases-badge"></strong>
+        <div id="error-msg" class="status-error"></div>
+        <button onclick="cerrar()">LISTO / SIGUIENTE</button>
+    </div>
+
+    <script>
+        // --- BASE DE DATOS INICIAL ---
+        const listaInicial = {
+            "001": { nombre: "Juan Pérez", pases: 4, foto: "img/juan.jpg" },
+            "002": { nombre: "Maria García", pases: 2, foto: "img/maria.jpg" },
+            "003": { nombre: "Carlos Ruiz", pases: 1, foto: "img/carlos.jpg" }
+            // Agrega los 40 aquí
+        };
+
+        // --- LÓGICA DE PERSISTENCIA (OFFLINE) ---
+        // Si ya hay datos guardados en el celular, los usa. Si no, usa la lista inicial.
+        let invitados = JSON.parse(localStorage.getItem('db_invitados')) || listaInicial;
+
+        function guardarDatos() {
+            localStorage.setItem('db_invitados', JSON.stringify(invitados));
+        }
+
+        function onScanSuccess(decodedText) {
+            const id = decodedText.trim();
+            const resDiv = document.getElementById('resultado');
+            const errorMsg = document.getElementById('error-msg');
+            const btn = document.querySelector('button');
+            
+            if (invitados[id]) {
+                const inv = invitados[id];
+                document.getElementById('invitado-nombre').innerText = inv.nombre;
+                document.getElementById('invitado-foto').src = inv.foto;
+                
+                if (inv.pases > 0) {
+                    inv.pases--; 
+                    guardarDatos(); // Se guarda el descuento de forma permanente en el móvil
+                    document.getElementById('invitado-pases').innerText = inv.pases;
+                    errorMsg.innerText = "";
+                    btn.style.background = "var(--primary)";
+                } else {
+                    document.getElementById('invitado-pases').innerText = "0";
+                    errorMsg.innerText = "❌ YA NO TIENE PASES DISPONIBLES";
+                    btn.style.background = "var(--danger)";
+                }
+                resDiv.style.display = "block";
+            } else {
+                alert("QR no registrado: " + id);
+            }
+        }
+
+        function cerrar() {
+            document.getElementById('resultado').style.display = "none";
+        }
+
+        // Configuración para Móvil
+        const scanner = new Html5QrcodeScanner("reader", { 
+            fps: 15, 
+            qrbox: {width: 250, height: 250},
+            rememberLastUsedCamera: true,
+            supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+        });
+        
+        scanner.render(onScanSuccess);
+    </script>
+</body>
+</html>
