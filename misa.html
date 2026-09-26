@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misa - Irina</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #000;
+            font-family: Georgia, serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .invitacion {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .imagen {
+            width: 100%;
+            display: block;
+        }
+
+        /* Fecha y hora */
+        .fecha {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            text-align: center;
+            color: #ffffff;
+            font-size: 20px;
+            text-shadow: 0 2px 6px #000, 0 0 10px #000;
+            line-height: 1.6;
+        }
+
+        /* Lugar */
+        .lugar {
+            position: absolute;
+            top: 68%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            text-align: center;
+            color: #ffffff;
+            font-size: 18px;
+            text-shadow: 0 2px 6px #000, 0 0 10px #000;
+            line-height: 1.6;
+        }
+
+        /* Link al mapa */
+        .mapa-link {
+            color: #d4af37;
+            text-decoration: none;
+            border-bottom: 1px dashed #d4af37;
+        }
+
+        audio { display: none; }
+    </style>
+</head>
+
+<body>
+
+    <div class="invitacion">
+
+        <img src="fotomisa.jpeg" class="imagen" alt="Invitación Misa">
+
+        <div class="fecha">
+            📅 25 de Octubre<br>
+            🕗 20:00 hs
+        </div>
+
+        <div class="lugar">
+            ⛪ Parroquia Inmaculado Corazón de María<br>
+            Gascón 1970, General Güemes<br>
+            <a class="mapa-link"
+               href="https://www.google.com/maps/place/Parroquia+Inmaculado+Coraz%C3%B3n+de+Mar%C3%ADa/@-27.4866086,-58.7967301,21z"
+               target="_blank">
+               📍 Ver ubicación en el mapa
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
