@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Invitación Especial - Irina</title>
 
     <style>
@@ -32,25 +31,32 @@
             display: block;
         }
 
-        .datos {
+        /* Número dentro de los paréntesis "( )" */
+        .numero-pases {
             position: absolute;
-            top: 72%;
+            top: 49.5%;           /* Ajusta si es necesario */
+            left: 27%;            /* Ajusta si es necesario */
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 8px #000, 0 0 12px #000;
+            font-family: Georgia, serif;
+            pointer-events: none;
+        }
+
+        /* Nombre del invitado (opcional, arriba) */
+        .nombre {
+            position: absolute;
+            top: 63%;             /* Ajusta según tu preferencia */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 80%;
             text-align: center;
             color: white;
-            text-shadow: 0 2px 5px #000;
-        }
-
-        .nombre {
-            font-size: 30px;
+            font-size: 26px;
             font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .pases {
-            font-size: 20px;
+            text-shadow: 0 2px 5px #000;
         }
 
         .boton-musica {
@@ -79,15 +85,11 @@
 
         <img src="personal.jpeg" class="imagen" alt="Invitación">
 
-        <div class="datos">
-            <div class="nombre" id="invitado">
-                Invitado
-            </div>
+        <!-- Número dentro de los paréntesis -->
+        <div class="numero-pases" id="pases">1</div>
 
-            <div class="pases" id="pases">
-                Válida para -- personas
-            </div>
-        </div>
+        <!-- Nombre del invitado -->
+        <div class="nombre" id="invitado">Invitado</div>
 
         <audio id="musica" loop>
             <source src="Moonstruck.mp3" type="audio/mpeg">
@@ -100,7 +102,6 @@
     </div>
 
     <script>
-
         const parametros = new URLSearchParams(window.location.search);
 
         const invitado = parametros.get("invitado");
@@ -111,21 +112,17 @@
         }
 
         if (pases) {
-            document.getElementById("pases").textContent =
-                "Invitación válida para " + pases + " personas";
+            document.getElementById("pases").textContent = pases;
         }
 
         function reproducirMusica() {
-
             const musica = document.getElementById("musica");
-
             if (musica.paused) {
                 musica.play();
             } else {
                 musica.pause();
             }
         }
-
     </script>
 
 </body>
