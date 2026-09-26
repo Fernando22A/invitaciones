@@ -6,9 +6,7 @@
     <title>Invitación Especial - Irina</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -31,32 +29,37 @@
             display: block;
         }
 
-        /* Número dentro de los paréntesis "( )" */
+        /* Número dentro de los paréntesis ( ) */
         .numero-pases {
             position: absolute;
-            top: 49.5%;           /* Ajusta si es necesario */
-            left: 27%;            /* Ajusta si es necesario */
+            top: 50%;                 /* Ajustado a la línea de PERSONAS */
+            left: 27%;                /* Dentro del paréntesis izquierdo */
             transform: translate(-50%, -50%);
-            font-size: 40px;
+            font-size: 44px;
             font-weight: bold;
             color: #ffffff;
-            text-shadow: 0 0 8px #000, 0 0 12px #000;
+            text-shadow:
+                0 0 6px #000,
+                0 0 12px #000,
+                0 0 20px rgba(212, 175, 55, 0.4);   /* brillo dorado sutil */
             font-family: Georgia, serif;
             pointer-events: none;
+            line-height: 1;
         }
 
-        /* Nombre del invitado (opcional, arriba) */
+        /* Nombre del invitado */
         .nombre {
             position: absolute;
-            top: 63%;             /* Ajusta según tu preferencia */
+            top: 70%;                 /* Antes 73%, lo subí un poco */
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
+            width: 85%;
             text-align: center;
-            color: white;
+            color: #ffffff;
             font-size: 26px;
             font-weight: bold;
             text-shadow: 0 2px 5px #000;
+            letter-spacing: 0.5px;
         }
 
         .boton-musica {
@@ -73,9 +76,7 @@
             font-size: 16px;
         }
 
-        audio {
-            display: none;
-        }
+        audio { display: none; }
     </style>
 </head>
 
@@ -86,10 +87,10 @@
         <img src="personal.jpeg" class="imagen" alt="Invitación">
 
         <!-- Número dentro de los paréntesis -->
-        <div class="numero-pases" id="pases">1</div>
+        <div class="numero-pases" id="pases">3</div>
 
         <!-- Nombre del invitado -->
-        <div class="nombre" id="invitado">Invitado</div>
+        <div class="nombre" id="invitado">Fernandez Julieta</div>
 
         <audio id="musica" loop>
             <source src="Moonstruck.mp3" type="audio/mpeg">
