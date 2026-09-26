@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invitación Especial - Irina</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #000;
+            font-family: Georgia, serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .invitacion {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .imagen {
+            width: 100%;
+            display: block;
+        }
+
+        .datos {
+            position: absolute;
+            top: 72%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
+            color: white;
+            text-shadow: 0 2px 5px #000;
+        }
+
+        .nombre {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .pases {
+            font-size: 20px;
+        }
+
+        .boton-musica {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            border: 1px solid #d4af37;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invitacion">
+
+        <img src="personal.jpeg" class="imagen" alt="Invitación">
+
+        <div class="datos">
+            <div class="nombre" id="invitado">
+                Invitado
+            </div>
+
+            <div class="pases" id="pases">
+                Válida para -- personas
+            </div>
+        </div>
+
+        <audio id="musica" loop>
+            <source src="Moonstruck.mp3" type="audio/mpeg">
+        </audio>
+
+        <button class="boton-musica" onclick="reproducirMusica()">
+            🎵 Reproducir Música
+        </button>
+
+    </div>
+
+    <script>
+
+        const parametros = new URLSearchParams(window.location.search);
+
+        const invitado = parametros.get("invitado");
+        const pases = parametros.get("pases");
+
+        if (invitado) {
+            document.getElementById("invitado").textContent = invitado;
+        }
+
+        if (pases) {
+            document.getElementById("pases").textContent =
+                "Invitación válida para " + pases + " personas";
+        }
+
+        function reproducirMusica() {
+
+            const musica = document.getElementById("musica");
+
+            if (musica.paused) {
+                musica.play();
+            } else {
+                musica.pause();
+            }
+        }
+
+    </script>
+
+</body>
+</html>
